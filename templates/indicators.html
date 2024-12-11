@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicadores</title>
+</head>
+<body>
+    <h1>Indicadores do Dashboard</h1>
+    <ul>
+        {% for indicator in indicators %}
+            <li>{{ indicator.name }}: {{ indicator.value }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

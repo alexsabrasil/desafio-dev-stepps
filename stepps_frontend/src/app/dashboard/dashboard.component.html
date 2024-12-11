@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" class="toolbar">
+  <img src="assets/logo.png" alt="STEPPS Logo" class="logo">
+  <span class="spacer"></span>
+  <div class="user-info">
+    <img [src]="'assets/avatars/' + username + '.jpg'" alt="User Avatar" class="avatar">
+    <span class="username">{{username}}</span>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="dashboard-container">
+  <div class="indicators-grid">
+    <mat-card *ngFor="let indicator of indicators" class="indicator-card">
+      <mat-card-content>
+        <mat-icon [style.color]="indicator.color">{{indicator.icon}}</mat-icon>
+        <h2>{{indicator.name}}</h2>
+        <div class="indicator-value">{{indicator.value}}</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="chart-card">
+    <mat-card-content>
+      <canvas id="indicatorChart"></canvas>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div>
+  <canvas baseChart
+          [data]="chartData"
+          [labels]="chartLabels"
+          [type]="chartType">
+  </canvas>
+</div>

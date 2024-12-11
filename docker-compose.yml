@@ -1,0 +1,44 @@
+# version: '3.8' ---> Versão obsoleta
+
+services:
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=stepps_db
+      - POSTGRES_USER=stepps_user
+      - POSTGRES_PASSWORD=stepps_password
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: 
+      context: ./stepps_backend
+      dockerfile: Dockerfile.backend
+    command: > 
+        sh -c "python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./stepps_backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://stepps_user:stepps_password@db:5432/stepps_db
+      - DJANGO_SETTINGS_MODULE=stepps_backend.settings
+
+  frontend:
+    build: 
+      context: ./stepps_frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./stepps_frontend:/app
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

@@ -1,0 +1,23 @@
+# .gitignore
+
+# Python
+*.pyc
+__pycache__/
+env/
+*.env
+
+# Node.js/Angular
+node_modules/
+dist/
+npm-debug.log
+
+# Django
+db.sqlite3
+/static/
+
+# Docker
+*.log
+*.pid
+*.seed
+*.swo
+*.swp
